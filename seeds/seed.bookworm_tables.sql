@@ -17,10 +17,10 @@ VALUES
 INSERT INTO bookworm_books(title, author, user_name, description)
 VALUES 
     ('Harry Potter and the Sorcerers Stone', 'J.K. Rowling', 'dunder', 'Magical boy joins magical world'),
-    ('Game of Thrones', 'George R.R. Martin', 's.smith', 'Dragons'),
-    ('The Girl with the Dragon Tattoo', 'Steig Larson', 'lexlor', 'Girl solves mysteries'),
-    ('And Then there were none', 'Agatha Christie', 'c.bloggs', 'People on island disappear one by one.'),
-    ('New book', 'New Author', 'dunder', 'new description');
+    ('Game of Thrones', 'George R.R. Martin', 'dunder', 'Dragons'),
+    ('The Girl with the Dragon Tattoo', 'Steig Larson', 's.smith', 'Girl solves mysteries'),
+    ('And Then there were none', 'Agatha Christie', 'wippy', 'People on island disappear one by one.'),
+    ('New book', 'New Author', 's.smith', 'new description');
 
 
 COMMIT;

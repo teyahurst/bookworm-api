@@ -3,5 +3,5 @@ CREATE TABLE bookworm_books (
     title TEXT,
     author TEXT,
     description TEXT,
-    date_added TIMESTAMPTZ DEFAULT now() NOT NULL
+    img TEXT UNIQUE
 );

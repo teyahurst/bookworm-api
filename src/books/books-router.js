@@ -1,7 +1,7 @@
 const express = require('express')
 const BooksService = require('./books-service')
-const { requireAuth } = require('../middleware/jwt-auth')
-const { serializeBook } = require('./books-service')
+const path = require('path')
+
 
 const booksRouter = express.Router()
 const jsonParser = express.json()
@@ -25,9 +25,9 @@ booksRouter
         })
         .catch(next)
     })
-    .post(requireAuth, jsonParser, (req, res, next) => {
-        const { title, author, description } = req.body;
-        const newBook = { title, author, description } 
+    .post(jsonParser, (req, res, next) => {
+        const { title, author, description, urltoimage, user_name } = req.body;
+        const newBook = { title, author, description, urltoimage, user_name } 
 
         for (const [key, value] of Object.entries(newBook))
             if(value == null)
@@ -35,19 +35,44 @@ booksRouter
                     error: { message: `Missing '${key}' in request body` }
                 })
 
-            newBook.user_name = req.user_name
-
+            
             BooksService.insertBook(
                 req.app.get('db'),
-                newBook
+                newBook,
+                user_name,
             )
             .then(book => {
                 res
                     .status(201)
+                    .location(path.posix.join(req.originalUrl, `/${book.id}`))
+                    .json(book)
                     
             })
             .catch(next)
     })
+
+booksRouter
+    .route('/:user_name/books/:book_id')
+    .all((req, res, next) => {
+        BooksService.getBookById(req.app.get('db'), req.params.book_id)
+            .then(book => {
+                if(!book) {
+                    return res.status(404).json({
+                        error: { message: `Book doesn't exist` }
+                    })
+                }
+                next()
+            })
+            .catch(next)
+    })
+    .delete((req, res, next) => {
+        BooksService.deleteBook(req.app.get('db'), req.params.book_id)
+        .then(() => {
+            res.status(204).json({})
+        })
+        .catch(next)
+    })
+    
 
 
 
