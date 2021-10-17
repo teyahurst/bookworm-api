@@ -23,7 +23,7 @@ const BooksService = {
         return knex
             .insert(newBook)
             .into('bookworm_books')
-            .where('user_name', user_name)
+            .where({ user_name })
             .returning('*')
             .then(rows => {
                 return rows[0]
