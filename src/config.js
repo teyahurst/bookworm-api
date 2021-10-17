@@ -6,4 +6,5 @@ module.exports = {
     JWT_SECRET: process.env.JWT_SECRET || 'change-this-secret',
     JWT_EXPIRY: process.env.JWT_EXPIRY || '20s',
     CLIENT_ORIGIN: process.env.CLIENT_ORIGIN || 'http://localhost:3000'
+    
 }
