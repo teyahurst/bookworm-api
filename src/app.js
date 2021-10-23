@@ -12,7 +12,7 @@ const usersRouter = require('./users/users-router')
 
 const app = express();
 
-const morganOption = (NODE_ENV === 'production')
+const morganOption = process.env.NODE_ENV === 'production'
     ? 'tiny'
     : 'common';
 
@@ -34,9 +34,9 @@ app.use(function errorHandler(error, req, res, next){
     if(NODE_ENV === 'production'){
         response = { error: { message: 'server error'}}
     } else {
-        console.error(error)
         response = { message: error.message, error }
     }
+    console.error(error)
     res.status(500).json(response)
 })
 
