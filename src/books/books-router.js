@@ -45,7 +45,7 @@ booksRouter
                 res
                     .status(201)
                     .location(path.posix.join(req.originalUrl, `/${book.id}`))
-                    .json()
+                    .json(book)
                     
             })
             .catch(next)
