@@ -26,8 +26,8 @@ booksRouter
         .catch(next)
     })
     .post(jsonParser, (req, res, next) => {
-        const { title, author, description, urltoimage, user_name } = req.body;
-        const newBook = { title, author, description, urltoimage, user_name } 
+        const { title, author, description, img, user_name } = req.body;
+        const newBook = { title, author, description, img, user_name } 
 
         for (const [key, value] of Object.entries(newBook))
             if(value == null)
