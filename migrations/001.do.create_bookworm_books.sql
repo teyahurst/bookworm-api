@@ -3,5 +3,5 @@ CREATE TABLE bookworm_books (
     title TEXT,
     author TEXT,
     description TEXT,
-    img TEXT
+    urltoimage TEXT
 );
