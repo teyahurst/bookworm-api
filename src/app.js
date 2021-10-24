@@ -16,21 +16,22 @@ const morganOption = process.env.NODE_ENV === 'production'
     ? 'tiny'
     : 'common';
 
+const corsOptions = {
+    origin: CLIENT_ORIGIN,
+    optionsSuccessStatus: 200
+}
+
 app.use(morgan(morganOption))
 app.use(helmet())
-app.use(cors({
-    origin: CLIENT_ORIGIN
-    })
-);
 
 app.get('/', (req, res) => {
     res.send('Hello, world!')
 })
 
 
-app.use('/', booksRouter)
-app.use('/api/auth', authRouter)
-app.use('/api/users', usersRouter)
+app.use('/', cors(corsOptions), booksRouter)
+app.use('/api/auth', cors(corsOptions), authRouter)
+app.use('/api/users', cors(corsOptions), usersRouter)
 
 app.use(function errorHandler(error, req, res, next){
     let response 
